@@ -1,4 +1,4 @@
-package com.udea.employees.controller;
+package com.udea.employees.Controller;
 
 import java.util.HashMap;
 
@@ -16,25 +16,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udea.employees.exception.ResourceNotFoundException;
 import com.udea.employees.model.Employee;
 import com.udea.employees.repository.EmployeeRepository;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@CrossOrigin("*")
+@CrossOrigin(value = "*",methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 @RestController
-@RequestMapping("/empleados")
+
 public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
-
-	@GetMapping("/employees")
+       @GetMapping(value = "/employees")
 	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
 	}
-
+        
 	@GetMapping("/employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") String employeeId)
 			throws ResourceNotFoundException {
